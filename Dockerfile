@@ -4,7 +4,7 @@ COPY . /src
 
 WORKDIR /src
 
-RUN apk add --no-cache git \
+RUN apk add --no-cache git librsvg \
     && npm install --only=production  \
     && npm cache clean --force \
     && rm -rf /tmp/npm* /root/.node* /root/.npm

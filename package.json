@@ -29,6 +29,7 @@
   "dependencies": {
     "parsoid": "wikimedia/parsoid#217c68aaebe84fc554699700115fd9a071880677",
     "restbase": "^0.17.0",
+    "mathoid": "^0.7.1",
     "service-runner": "^2.4.8",
     "restbase-mod-table-sqlite": "^1.0.0"
   }
