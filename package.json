@@ -27,9 +27,9 @@
     "url": "https://github.com/wikimedia/mediawiki-node-services/issues"
   },
   "dependencies": {
-    "parsoid": "^0.7.1",
-    "restbase": "^0.16.7",
-    "service-runner": "^2.2.5",
-    "restbase-mod-table-sqlite": "^0.1.20"
+    "parsoid": "^0.8.0",
+    "restbase": "^0.17.0",
+    "service-runner": "^2.4.8",
+    "restbase-mod-table-sqlite": "^1.0.0"
   }
 }
