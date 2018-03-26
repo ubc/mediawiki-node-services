@@ -7,7 +7,7 @@
 services:
   - name: restbase
     app_base_path: ./node_modules/restbase
-    conf: 
+    conf:
       port: 7231
       salt: secret
       default_page_size: 125
@@ -15,7 +15,7 @@ services:
       ui_name: RESTBase
       ui_url: https://www.mediawiki.org/wiki/RESTBase
       ui_title: RESTBase docs
-      spec: 
+      spec:
         x-request-filters:
           - path: lib/security_response_header_filter.js
         x-sub-request-filters:
@@ -26,6 +26,8 @@ services:
               - pattern: '{env(MEDIAWIKI_API_URL,http://localhost/w/api.php)}'
                 forward_headers: true
               - pattern: http://localhost:8142
+                forward_headers: true
+              - pattern: http://localhost:10042
                 forward_headers: true
               - pattern: /^https?:\/\//
         paths:
@@ -85,7 +87,16 @@ services:
       texvcinfo: true
       speech: true
       speech_on: false
+      speech_config:
+        semantics: true
+        domain: 'mathspeak'
+        style: 'default'
+        semantic: false
+        minSTree: false
+        speakText: true
+        enrich: false
       chem: true
+      dpi: 180
       no_check: true
       mj_config:
         extensions: "TeX/color,TeX/mediawiki-texvc,TeX/mhchem"
@@ -96,7 +107,18 @@ services:
             font: "TeX"
           TeX:
             noErrors:
-              disabled: true 
+              disabled: true
+      svgo: false
+      # the location of the spec, defaults to spec.yaml if not specified
+      # spec: ./spec.template.yaml
+      # allow cross-domain requests to the API (default '*')
+      cors: '*'
+      # to disable use:
+      # cors: false
+      # to restrict to a particular domain, use:
+      # cors: restricted.domain.org
+      # content for the CSP headers
+      # csp: false  # uncomment this line to disable sending them
 
 # Finally, a standard service-runner config.
 info:

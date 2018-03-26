@@ -6,8 +6,8 @@ paths:
       - spec:
           info:
             version: 1.0.0
-            title: Wikimedia REST API
-            description: Welcome to your RESTBase API.
+            title: UBC Wiki REST API
+            description: Welcome to UBC Wiki RESTBase API.
           #securityDefinitions: &wp/content-security/1.0.0
           #  mediawiki_auth:
           #    description: Checks permissions using MW api
@@ -18,7 +18,7 @@ paths:
           #      - /http:\/\/[a-zA-Z0-9\.]+\/w\/api\.php/
           # Override the base path for host-based (proxied) requests. In our case,
           # we proxy https://{domain}/api/rest_v1/ to the API.
-          #x-host-basePath: /api/rest_v1
+          x-host-basePath: /api/rest_v1
           x-route-filters:
             - path: ./lib/normalize_title_filter.js
               options:
@@ -56,15 +56,31 @@ paths:
                 - path: sys/table.js
                   options:
                     conf: '{{options.table}}'
+            /parsoid_bucket:
+              x-modules:
+                - path: sys/multi_content_bucket.js
+                  options:
+                    time_to_live: '{{default(options.parsoid.time_to_live, 84600)}}'
+                    renew_expiring: true
+                    delete_probability: '{{default(options.parsoid.delete_probability, 1)}}'
+                    table_name_prefix: parsoid_ng
+                    main_content_type:
+                      name: html
+                      value_type: blob
+                    dependent_content_types:
+                      - name: data-parsoid
+                        value_type: json
+                      - name: section-offsets
+                        value_type: json
             /key_value:
               x-modules:
                 - path: sys/key_value.js
             /key_rev_value:
               x-modules:
                 - path: sys/key_rev_value.js
-            /key_rev_latest_value:
-              x-modules:
-                - path: sys/key_rev_latest_value.js
+#            /key_rev_latest_value:
+#              x-modules:
+#                - path: sys/key_rev_latest_value.js
             /post_data: &sys_post_data
               x-modules:
                 - path: sys/post_data.js
@@ -88,4 +104,6 @@ paths:
                   options:
                     parsoidHost: '{{options.parsoid.host}}'
                     response_cache_control: '{{options.purged_cache_control}}'
+                    grace_ttl: '{{default(options.parsoid.grace_ttl, 86400)}}'
+                    time_to_live: '{{default(options.parsoid.time_to_live, 84600)}}'
         options: '{{options}}'
