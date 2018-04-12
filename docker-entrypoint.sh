@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
 set -e
-cd /src
 
-OPTS="-n 1"
+sed -i "s/level: info/level: $LOG_LEVEL/" config.yaml
 
-exec node server -c config.yaml $OPTS
+exec "$@"
