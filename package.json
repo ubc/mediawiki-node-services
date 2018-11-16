@@ -1,6 +1,6 @@
 {
   "name": "mediawiki-node-services",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Run several mediawiki nodejs services (RESTBase, Parsoid) in a single docker container. Useful for small / low-memory installs.",
   "main": "index.js",
   "scripts": {
@@ -28,10 +28,10 @@
   },
   "dependencies": {
     "parsoid": "wikimedia/parsoid#217c68aaebe84fc554699700115fd9a071880677",
-    "restbase": "^0.17.0",
+    "restbase": "^0.19",
     "mathoid": "^0.7.1",
-    "service-runner": "^2.4.8",
-    "restbase-mod-table-sqlite": "^1.0.0",
+    "service-runner": "^2.6",
+    "restbase-mod-table-sqlite": "^1.1",
     "librsvg": "^0.7.0"
   }
 }
