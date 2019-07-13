@@ -27,11 +27,11 @@
     "url": "https://github.com/wikimedia/mediawiki-node-services/issues"
   },
   "dependencies": {
-    "parsoid": "^0.10",
-    "restbase": "wikimedia/restbase#1d0c716a8f28fe0812756853da5e322e866d5a95",
+    "parsoid": "wikimedia/parsoid#2ce998b9ce0d85d4be45950fb876fbb42a779e12",
+    "restbase": "0.19.3",
     "mathoid": "^0.7.2",
     "service-runner": "^2.6",
-    "restbase-mod-table-sqlite": "^1.1",
-    "librsvg": "^0.7"
+    "restbase-mod-table-sqlite": "1.1.2",
+    "librsvg": "wikimedia/mathoid#cc375c7db046c813ae86628f2f4b092428209f3a"
   }
 }
