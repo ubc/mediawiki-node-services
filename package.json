@@ -13,7 +13,6 @@
   },
   "keywords": [
     "mediawiki",
-    "parsoid",
     "restbase",
     "docker"
   ],
@@ -27,11 +26,10 @@
     "url": "https://github.com/wikimedia/mediawiki-node-services/issues"
   },
   "dependencies": {
-    "parsoid": "^0.10",
-    "restbase": "wikimedia/restbase#1d0c716a8f28fe0812756853da5e322e866d5a95",
+    "restbase": "wikimedia/restbase#v1.1.4",
     "mathoid": "^0.7.2",
     "service-runner": "^2.6",
-    "restbase-mod-table-sqlite": "^1.1",
+    "restbase-mod-table-sqlite": "^1.2",
     "librsvg": "^0.7"
   }
 }
