@@ -2,10 +2,10 @@
 # single process:
 #
 # - RESTBase
-# - Parsoid
 
 services:
   - name: restbase
+    module: hyperswitch
     app_base_path: ./node_modules/restbase
     conf:
       port: 7231
@@ -18,18 +18,19 @@ services:
       spec:
         x-request-filters:
           - path: lib/security_response_header_filter.js
+          - path: lib/normalize_headers_filter.js
         x-sub-request-filters:
           - type: default
             name: http
             options:
-            allow:
-              - pattern: '{env(MEDIAWIKI_API_URL,http://localhost/w/api.php)}'
-                forward_headers: true
-              - pattern: http://localhost:8142
-                forward_headers: true
-              - pattern: http://localhost:10042
-                forward_headers: true
-              - pattern: /^https?:\/\//
+              allow:
+                - pattern: '{env(MEDIAWIKI_API_URL,http://localhost/w/api.php)}'
+                  forward_headers: true
+                - pattern: http://localhost:8142
+                  forward_headers: true
+                - pattern: http://localhost:10042
+                  forward_headers: true
+                - pattern: /^https?:\/\//
         paths:
           /{domain:localhost}:
             x-modules:
@@ -41,7 +42,7 @@ services:
                     baseUriTemplate: "{{'http://{domain}:7231/{domain}/v1'}}"
                   parsoid:
                     # XXX Check Parsoid URL!
-                    host: http://localhost:8142
+                    host: '{env(MEDIAWIKI_REST_URL,http://localhost/w/rest.php)}'
                   table:
                     backend: sqlite
                     dbname: /data/restbase_tables.sqlite3
@@ -49,6 +50,9 @@ services:
                     retry_delay: 250
                     retry_limit: 10
                     show_sql: false
+                    storage_groups:
+                      - name: local
+                        domains: /./
                   mathoid:
                     host: '{env(MATHOID_HOST_PORT,http://localhost:10042)}'
                   mobileapps:
@@ -56,21 +60,6 @@ services:
                   citoid:
                     host: '{env(CITOID_URI,http://localhost:1970)}'
                   purged_cache_control: s-maxage=864000, max-age=86400
-          /{domain:wikimedia.org}:
-            x-modules:
-              - path: projects/wikimedia.org.yaml
-                options: *default_options
-  - name: parsoid
-    entrypoint: apiServiceWorker
-    conf:
-      useSelser: true
-      serverPort: 8142
-      serverInterface: 0.0.0.0
-      debug: false
-      mwApis:
-        - domain: localhost
-          prefix: localhost
-          uri: '{env(MEDIAWIKI_API_URL,http://localhost/w/api.php)}'
   - name: mathoid
     # a relative path or the name of an npm package, if different from name
     module: ./mathoid/app.js

@@ -2,12 +2,13 @@ FROM node:7-alpine
 
 ENV LOG_LEVEL info
 
+RUN apk add --no-cache git librsvg librsvg-dev build-base
+
 COPY . /src
 
 WORKDIR /src
 
-RUN apk add --no-cache git librsvg librsvg-dev build-base \
-    && npm install --only=production  \
+RUN npm install --only=production  \
     && npm cache clean --force \
     && rm -rf /tmp/npm* /root/.node* /root/.npm
 

@@ -30,6 +30,9 @@ paths:
 
   /{api:sys}:
     x-modules:
+      - path: projects/proxy.yaml
+        options:
+          backend_host_template: '{{"/{domain}/sys/legacy"}}'
       - spec:
           paths:
             /mathoid:
@@ -57,10 +60,10 @@ paths:
 #                        value_type: json
 #                      - name: section-offsets
 #                        value_type: json
-            /key_value: &sys_key_value
+            /legacy/key_value: &sys_key_value
               x-modules:
                 - path: sys/key_value.js
-            /page_revisions:
+            /legacy/page_revisions:
               x-modules:
                 - path: sys/page_revisions.js
             /post_data:
