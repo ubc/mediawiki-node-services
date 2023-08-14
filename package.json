@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "restbase": "wikimedia/restbase#v1.1.4",
-    "mathoid": "^0.7.2",
-    "service-runner": "^2.6",
+    "mathoid": "^0.7.6",
+    "service-runner": "^2.8.4",
     "restbase-mod-table-sqlite": "^1.2",
     "librsvg": "^0.7"
   }
