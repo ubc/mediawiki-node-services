@@ -1,8 +1,8 @@
-FROM node:7-alpine
+FROM node:10-alpine
 
-ENV LOG_LEVEL info
+ENV LOG_LEVEL=info
 
-RUN apk add --no-cache git librsvg librsvg-dev build-base
+RUN apk add --no-cache git librsvg librsvg-dev build-base python2
 
 COPY . /src
 
