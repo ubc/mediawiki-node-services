@@ -30,6 +30,7 @@
     "mathoid": "0.7.5",
     "service-runner": "^2.8.4",
     "restbase-mod-table-sqlite": "^1.2",
-    "librsvg": "^0.7"
+    "librsvg": "^0.7",
+    "commander": "^6.2.1"
   }
 }
